@@ -38,10 +38,6 @@ class AppComponent extends React.Component {
         leftSecX : [0,0],
         rightSecX : [0,0],
         y:[0,0]
-      },
-      vPosRange : {
-        x : [0,0],
-        topY : [0,0]
       }
     };
     this.state = {
@@ -80,16 +76,9 @@ class AppComponent extends React.Component {
         Constant = this.Constant,
         centerPos = Constant.centerPos,
         hPosRange = Constant.hPosRange,
-        vPosRange = Constant.vPosRange,
         hPosLeftSecX = hPosRange.leftSecX,
         hPosRightSecX = hPosRange.rightSecX,
         hPosY = hPosRange.y,
-        vPosX = vPosRange.x,
-        vPosTopY = vPosRange.topY,
-
-        imgsArrangeTopArr = [],
-        topImgNum = Math.ceil(Math.random() * 2),
-        topImgSpliceIndex = 0,
 
         imgsArrangeCenterArr = imgsArrangeArr.splice(centerIndex, 1);
         //首先居中center 图片,居中图片不需要旋转
@@ -97,19 +86,7 @@ class AppComponent extends React.Component {
         imgsArrangeCenterArr[0].rotate = 0;
         imgsArrangeCenterArr[0].isCenter = true;
 
-        //取出 布局在上侧的图片信息
-        topImgSpliceIndex = Math.ceil(Math.random() * (imgsArrangeArr.length - topImgNum));
-        imgsArrangeTopArr = imgsArrangeArr.splice(topImgSpliceIndex , topImgNum);
-
-        imgsArrangeTopArr.forEach(function(value, index){
-          imgsArrangeTopArr[index] = {
-            pos : {
-              top : getRangeRandom(vPosTopY[0], vPosTopY[1]),
-              left : getRangeRandom(vPosX[0], vPosX[1])
-            },
-            rotate : get30DegRandom()
-          }
-        })
+        
         //布局左右侧图片
         for(let i = 0,j = imgsArrangeArr.length,k = j / 2;i < j;i++){
           let hPosRangeLORX = null;
@@ -127,9 +104,6 @@ class AppComponent extends React.Component {
           }
         }
 
-        if(imgsArrangeTopArr && imgsArrangeTopArr[0]){
-          imgsArrangeArr.splice(topImgSpliceIndex,0,imgsArrangeTopArr[0]);
-        }
         imgsArrangeArr.splice(centerIndex,0,imgsArrangeCenterArr[0]);
 
         this.setState({
@@ -157,13 +131,9 @@ class AppComponent extends React.Component {
       top : halfStageH - halfImgH
     };
     this.Constant.hPosRange = {
-      leftSecX : [ - halfImgW, halfStageW - halfImgW * 3],
-      rightSecX : [halfStageW + halfImgW, stageW - halfImgW],
+      leftSecX : [ - halfImgW, halfStageW - halfImgW * 2],
+      rightSecX : [halfStageW, stageW - halfImgW],
       y : [- halfImgH, stageH - halfImgH]
-    };
-    this.Constant.vPosRange = {
-      x : [halfStageW - imgW, halfStageW],
-      topY : [-halfImgH, halfStageH - halfImgH * 3]
     };
     this.rearrange(0);
   }
