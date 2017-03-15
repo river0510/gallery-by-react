@@ -1,10 +1,10 @@
 import React from 'react';
 
 class ImageFigure extends React.Component {
-	handleClick(e){
-		if(this.props.arrange.isCenter){
+	handleClick(e) {
+		if (this.props.arrange.isCenter) {
 			this.props.inverse();
-		}else{
+		} else {
 			this.props.center();
 		}
 
@@ -13,19 +13,16 @@ class ImageFigure extends React.Component {
 	}
 	render() {
 		let imgFigureClassName = 'img-figure';
-			imgFigureClassName += this.props.arrange.isInverse ? ' is-inverse' : '';
-
+		imgFigureClassName += this.props.arrange.isInverse ? ' is-inverse' : '';
+		imgFigureClassName += this.props.arrange.isCenter ? ' is-center' : '';
 		let styleObj;
-		if(this.props.arrange.pos){
+		if (this.props.arrange.pos) {
 			styleObj = this.props.arrange.pos;
 		}
-		if(this.props.arrange.rotate){
-			(['MozT', 'msT', 'WebkitT', 't']).forEach(function(value){
+		if (this.props.arrange.rotate) {
+			(['MozT', 'msT', 'WebkitT', 't']).forEach(function(value) {
 				styleObj[value + 'ransform'] = 'rotate(' + this.props.arrange.rotate + 'deg)';
 			}.bind(this));
-		}
-		if(this.props.arrange.isCenter){
-			styleObj.zIndex = 11;
 		}
 		return (
 			<figure className={imgFigureClassName} style={styleObj} onClick={this.handleClick.bind(this)}>
@@ -35,7 +32,7 @@ class ImageFigure extends React.Component {
 					<div className="img-back" onClick={this.handleClick.bind(this)}>
 						<p>
 							{this.props.data.desc}
-						</p>
+						</p> 
 					</div>
 				</figcaption>
 			</figure>
